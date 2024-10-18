@@ -14,7 +14,7 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public List<categoryModel> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAll(); // This fetches categories with their provinces
     }
 
     public Optional<categoryModel> getCategoryById(int id) {

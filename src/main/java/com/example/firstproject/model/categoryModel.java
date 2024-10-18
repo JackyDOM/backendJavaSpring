@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Entity
@@ -22,8 +24,25 @@ public class categoryModel {
     private byte[] imageData;
 
     // Bidirectional relationship
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<provinceModel> provinces; // list of provinces belonging to this category
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<provinceModel> provinces = new ArrayList<>(); // Initialize the list
+
+    // Method to return a shortened Base64 string for imageData
+    public String getShortenedImageData() {
+        if (imageData != null) {
+            String base64Image = Base64.getEncoder().encodeToString(imageData);
+            return base64Image.substring(0, 20) + "..."; // Show first 20 characters and add "..."
+        }
+        return null; // If no image data
+    }
+
+    public List<provinceModel> getProvinces() {
+        return provinces;
+    }
+
+    public void setProvinces(List<provinceModel> provinces) {
+        this.provinces = provinces;
+    }
 
     public int getId() {
         return id;
