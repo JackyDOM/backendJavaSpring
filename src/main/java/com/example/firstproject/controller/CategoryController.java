@@ -1,6 +1,7 @@
 package com.example.firstproject.controller;
 
 import com.example.firstproject.model.categoryModel;
+import com.example.firstproject.model.provinceModel;
 import com.example.firstproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,13 @@ public class CategoryController {
     private CategoryService categoryService;
 
     // GET all categories with shortened imageData
+    // GET all categories with provinces and shortened imageData
     @GetMapping
     public List<Map<String, Object>> getAllCategories() {
         List<categoryModel> categories = categoryService.getAllCategories();
         List<Map<String, Object>> result = new ArrayList<>();
 
-        // Prepare the response with shortened imageData
+        // Prepare the response with shortened imageData and provinces
         for (categoryModel category : categories) {
             Map<String, Object> categoryMap = new HashMap<>();
             categoryMap.put("id", category.getId());
@@ -33,6 +35,20 @@ public class CategoryController {
             categoryMap.put("imageName", category.getImageName());
             categoryMap.put("imageType", category.getImageType());
             categoryMap.put("shortenedImageData", category.getShortenedImageData()); // Include shortened image data
+
+            // Add provinces to the response
+            List<Map<String, Object>> provinceList = new ArrayList<>();
+            for (provinceModel province : category.getProvinces()) {
+                Map<String, Object> provinceMap = new HashMap<>();
+                provinceMap.put("id", province.getId());
+                provinceMap.put("provinceName", province.getProvinceName());
+                provinceMap.put("location", province.getLocation());
+                provinceMap.put("shortenedImageData", province.getShortenedImageData());
+                provinceList.add(provinceMap);
+            }
+            // Move the addition of provinces under imageType
+            categoryMap.put("provinces", provinceList); // Add provinces after imageType
+
             result.add(categoryMap);
         }
         return result;
