@@ -1,6 +1,7 @@
 package com.example.firstproject.controller;
 
 import com.example.firstproject.model.categoryModel;
+import com.example.firstproject.model.foodModel;
 import com.example.firstproject.model.provinceModel;
 import com.example.firstproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,22 @@ public class CategoryController {
                 provinceMap.put("provinceName", province.getProvinceName());
                 provinceMap.put("location", province.getLocation());
                 provinceMap.put("shortenedImageData", province.getShortenedImageData());
+                provinceList.add(provinceMap);
+
+                // Include food details for each province
+                List<Map<String, Object>> foodList = new ArrayList<>();
+                for (foodModel food : province.getFoods()) {
+                    Map<String, Object> foodMap = new HashMap<>();
+                    foodMap.put("id", food.getId());
+                    foodMap.put("foodName", food.getFoodName());
+                    foodMap.put("foodDescription", food.getFoodDescription());
+                    foodMap.put("foodIngredient", food.getFoodIngredient());
+                    foodMap.put("foodLocation", food.getFoodLocation());
+                    foodMap.put("foodImageName", food.getFoodImageName());
+                    foodMap.put("foodImageType", food.getFoodImageType());
+                    foodList.add(foodMap);
+                }
+                provinceMap.put("foods", foodList); // Add foods list to the province
                 provinceList.add(provinceMap);
             }
             // Move the addition of provinces under imageType

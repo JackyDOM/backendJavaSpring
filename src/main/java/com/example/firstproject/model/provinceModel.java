@@ -23,8 +23,8 @@ public class provinceModel {
     @JoinColumn(name = "category_id") // Specify the foreign key column
     private categoryModel category;
 
-//    @OneToMany(mappedBy = "province") // Add this to establish the bidirectional relationship
-//    private List<foodModel> foods;
+    @OneToMany(mappedBy = "province") // Add this to establish the bidirectional relationship
+    private List<foodModel> foods;
 
     private String provinceImageName;
     private String provinceImageType;
@@ -41,13 +41,13 @@ public class provinceModel {
     }
 
 
-//    public List<foodModel> getFoods() {
-//        return foods;
-//    }
-//
-//    public void setFoods(List<foodModel> foods) {
-//        this.foods = foods;
-//    }
+    public List<foodModel> getFoods() {
+        return foods;
+    }
+
+    public void setFoods(List<foodModel> foods) {
+        this.foods = foods;
+    }
 
     public int getId() {
         return id;

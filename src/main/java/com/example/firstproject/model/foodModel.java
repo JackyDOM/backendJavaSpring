@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Base64;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -26,6 +28,15 @@ public class foodModel {
     private String foodImageType;
     @Lob
     private byte[] foodImageData;
+
+    // Method to return a shortened Base64 string for imageData
+    public String getShortenedImageData() {
+        if (foodImageData != null) {
+            String base64Image = Base64.getEncoder().encodeToString(foodImageData);
+            return base64Image.substring(0, 20) + "..."; // Show first 20 characters and add "..."
+        }
+        return null; // If no image data
+    }
 
     public int getId() {
         return id;
