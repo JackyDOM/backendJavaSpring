@@ -7,8 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -20,8 +19,24 @@ public class FoodController {
 
     // Get all food items
     @GetMapping
-    public List<foodModel> getAllFoods() {
-        return foodService.getAllFoods();
+    public List<Map<String, Object>> getAllFoods() {
+        List<foodModel> foods = foodService.getAllFoods();
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for(foodModel food : foods){
+            Map<String, Object> foodMap = new HashMap<>();
+            foodMap.put("id", food.getId());
+            foodMap.put("foodName", food.getFoodName());
+            foodMap.put("foodDescription", food.getFoodDescription());
+            foodMap.put("foodIngredient", food.getFoodIngredient());
+            foodMap.put("foodLocation", food.getFoodLocation());
+            foodMap.put("foodImageName", food.getFoodImageName());
+            foodMap.put("foodImageType", food.getFoodImageType());
+            foodMap.put("shortenedImageData", food.getShortenedImageData());
+            result.add(foodMap);
+        }
+
+        return result;
     }
 
     // Get food by ID

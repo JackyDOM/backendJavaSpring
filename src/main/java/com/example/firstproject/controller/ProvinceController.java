@@ -28,18 +28,18 @@ public class ProvinceController {
             provinceMap.put("location", province.getLocation());
 
             // Include category details
-            if (province.getCategory() != null) {
-                Map<String, Object> categoryMap = new HashMap<>();
-                categoryMap.put("id", province.getCategory().getId());
-                categoryMap.put("name", province.getCategory().getName());
-                categoryMap.put("imageName", province.getCategory().getImageName());
-                categoryMap.put("imageType", province.getCategory().getImageType());
-                categoryMap.put("shortenedImageData", province.getCategory().getShortenedImageData());
-
-                provinceMap.put("category", categoryMap); // Add the category map
-            } else {
-                provinceMap.put("category", null); // If no category is found
-            }
+//            if (province.getCategory() != null) {
+//                Map<String, Object> categoryMap = new HashMap<>();
+//                categoryMap.put("id", province.getCategory().getId());
+//                categoryMap.put("name", province.getCategory().getName());
+//                categoryMap.put("imageName", province.getCategory().getImageName());
+//                categoryMap.put("imageType", province.getCategory().getImageType());
+//                categoryMap.put("shortenedImageData", province.getCategory().getShortenedImageData());
+//
+//                provinceMap.put("category", categoryMap); // Add the category map
+//            } else {
+//                provinceMap.put("category", null); // If no category is found
+//            }
 
             provinceMap.put("provinceImageName", province.getProvinceImageName());
             provinceMap.put("imageType", province.getProvinceImageType());
